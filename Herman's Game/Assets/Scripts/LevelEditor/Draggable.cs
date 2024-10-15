@@ -3,7 +3,7 @@ using UnityEngine;
 public class Draggable : MonoBehaviour
 {
 
-    //鼠标拖动功能脚本 
+    // Mouse drag function script 
     private Camera mainCamera;
     private bool isDragging = false;
     private Vector3 offset;
@@ -16,7 +16,7 @@ public class Draggable : MonoBehaviour
     {
         mainCamera = Camera.main;
         gridScript = FindObjectOfType<GridScript>();
-        tileSelector = FindObjectOfType<TileSelector>();  // 获取 TileSelector
+        tileSelector = FindObjectOfType<TileSelector>();  // Get TileSelector
         offsetX = (gridScript.gridWidth * -gridScript.spacing) / 2f;
         offsetY = (gridScript.gridHeight * gridScript.spacing) / 2f;
     }
@@ -28,7 +28,7 @@ public class Draggable : MonoBehaviour
             Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
 
-            // 使用 Physics2D.Raycast 检测点击的 2D Sprite
+            // Detecting clicked 2D Sprite using Physics2D.Raycast
             if (hit.collider != null && hit.transform == transform)
             {
                 isDragging = true;
@@ -47,31 +47,31 @@ public class Draggable : MonoBehaviour
         {
             isDragging = false;
 
-            // 在松开鼠标时，将物体位置对齐到最近的网格
+            // Snap the object's position to the nearest grid when releasing the mouse button
             Vector3 snappedPos = SnapToGrid(transform.position);
             transform.position = snappedPos;
 
-            // 更新 GridScript 中的 start 或 goal 位置
+            // Update the start / goal position in GridScript
             UpdateGridScriptPosition(snappedPos);
         }
 
-        // 检测网格 tile 是否被点击
+        // Detect if the grid tile is clicked
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
 
-            // 如果点击了 tile
+            // If tile is clicked
             if (hit.collider != null && hit.collider.CompareTag("Tile"))
             {
                 GameObject clickedTile = hit.collider.gameObject;
 
-                // 获取 tile 的位置
+                // Get tile position
                 Vector3 tilePosition = clickedTile.transform.position;
                 int gridX = Mathf.RoundToInt((tilePosition.x - offsetX) / gridScript.spacing);
                 int gridY = Mathf.RoundToInt((offsetY - tilePosition.y) / gridScript.spacing);
 
-                // 使用 TileSelector 更新该 tile 的材质和cost
+                // Use TileSelector to update the tile's material and cost
                 gridScript.UpdateTile(gridX, gridY, tileSelector.selectedMaterial, tileSelector.selectedCost);
             }
         }

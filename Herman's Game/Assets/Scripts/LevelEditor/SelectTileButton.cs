@@ -15,7 +15,8 @@ public class SelectTileButton : MonoBehaviour
 
     void OnMouseDown()
     {
-        // 当玩家点击按钮时，设置选中的材质和成本
+        // When the player clicks the button,
+        // set the selected material and cost
         tileSelector.SelectTile(materialToSelect, costToSelect);
         Debug.Log("Selected: " + materialToSelect.name + "Cost: " + costToSelect);
     }

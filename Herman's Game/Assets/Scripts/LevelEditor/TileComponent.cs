@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TileComponent : MonoBehaviour
 {
-    // 这个组件在grid脚本中自动assign给每一个grid
+    // This component is automatically assigned to each grid in the grid script
    private GridScript gridScript;
     private int gridX, gridY;
     private Material currentMaterial;
@@ -25,15 +25,16 @@ public class TileComponent : MonoBehaviour
 
     void Start()
     {
-        tileSelector = FindObjectOfType<TileSelector>();  // 获取 TileSelector，用于选择材质和cost
+        tileSelector = FindObjectOfType<TileSelector>();  // Get TileSelector for material and cost
     }
 
     void OnMouseDown()
     {
-        // 检查是否有选中的材质和cost，没有就不执行替换操作
+        // Check if there is a selected material and cost,
+        // if not, do not perform the replacement operation
         if (tileSelector != null && tileSelector.selectedMaterial != null && tileSelector.selectedCost > 0)
         {
-            // 更新 tile 的材质和cost
+            // Update the tile's material and cost
             gridScript.UpdateTile(gridX, gridY, tileSelector.selectedMaterial, tileSelector.selectedCost);
 
             GetComponent<Renderer>().material = tileSelector.selectedMaterial;
