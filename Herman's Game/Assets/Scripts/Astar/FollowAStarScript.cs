@@ -20,21 +20,15 @@ public class FollowAStarScript : MonoBehaviour {
 
 	// Use this for initialization
 	protected virtual void Start () {
-		path = astar.path;
-		startPos = path.Get(0);
-		destPos  = path.Get(currentStep);
 
-		transform.position = startPos.gameObject.transform.position;
-
-		Debug.Log(name + " Start Delay: " + path.nodeInspected/100f);
-
-		Invoke("StartMove", path.nodeInspected/100f);
-
-		startTime = Time.realtimeSinceStartup;
 	}
 	
 	// Update is called once per frame
 	protected virtual void Update () {
+		if (astar.isPathfindingComplete && !move) {
+            InitializePathFollowing();
+        }
+
 
 		if(move){
 			lerpPer += Time.deltaTime/destPos.moveCost;
@@ -65,5 +59,19 @@ public class FollowAStarScript : MonoBehaviour {
 		move = true;
 		travelStartTime = Time.realtimeSinceStartup;
 	}
+
+	  protected virtual void InitializePathFollowing() {
+        path = astar.path;
+        startPos = path.Get(0);
+        destPos = path.Get(currentStep);
+
+        transform.position = startPos.gameObject.transform.position;
+
+        Debug.Log(name + " Start Delay: " + path.nodeInspected/100f);
+
+        Invoke("StartMove", path.nodeInspected/100f);
+
+        startTime = Time.realtimeSinceStartup;
+    }
 }
 
