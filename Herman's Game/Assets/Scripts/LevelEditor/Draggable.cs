@@ -39,6 +39,7 @@ public class Draggable : MonoBehaviour
 
         if (isDragging)
         {
+            //snap the sprite object to mouse position
             Vector3 newMousePos = GetMouseWorldPosition() - offset;
             transform.position = newMousePos;
         }
