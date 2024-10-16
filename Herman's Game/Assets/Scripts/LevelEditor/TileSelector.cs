@@ -13,4 +13,13 @@ public class TileSelector : MonoBehaviour
         selectedCost = newCost;
         Debug.Log("Selected material: " + newMaterial.name + " with cost: " + newCost);
     }
+
+    void Update()
+    {
+        if (Input.GetMouseButton(1))
+        {
+            selectedMaterial = null;
+            selectedCost = 0;
+        }
+    }
 }

@@ -31,20 +31,7 @@ public class TileComponent : MonoBehaviour
         tileSelector = FindObjectOfType<TileSelector>();  // Get TileSelector for material and cost
     }
 
-    private void Update()
-    {
-        if (isHolding)
-        {
-            DrawTile();
-        }
-    }
-
-    void OnMouseDown()
-    {
-        isHolding = true;
-    }
-
-    private void DrawTile()
+    public void OnMouseDown()
     {
         // Check if there is a selected material and cost,
         // if not, do not perform the replacement operation
@@ -59,10 +46,6 @@ public class TileComponent : MonoBehaviour
             Debug.Log($"Tile at ({gridX}, {gridY}) updated with material: {tileSelector.selectedMaterial.name}, cost: {tileSelector.selectedCost}");
         }
     }
-
-    private void OnMouseUp()
-    {
-        isHolding = false;
-    }
+    
 }
 

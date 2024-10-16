@@ -24,8 +24,7 @@ public class GridScript : MonoBehaviour {
         // so that it can be edited
         GetGrid();
     }
-
-	
+    
 	public virtual GameObject[,] GetGrid()
 	{
 		if (gridArray == null)
