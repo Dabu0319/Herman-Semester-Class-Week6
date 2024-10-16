@@ -32,10 +32,10 @@ using UnityEngine.Serialization;
 		protected Vector3 current;
 
 		public bool isPathfindingComplete = false;
-		private bool isPathfindingActive = false;
+		protected bool isPathfindingActive = false;
 
 
-		//小改了一下 现在Astar只有当玩家编辑完关卡之后 && 按下空格才会开始
+		// 小改了一下 现在Astar只有当玩家编辑完关卡之后 && 按下空格才会开始
 		protected virtual void Start()
 		{
 			gridScript = GameObject.Find("Grid").GetComponent<GridScript>();
@@ -156,12 +156,10 @@ using UnityEngine.Serialization;
 			Debug.Log(path.pathName + " Nodes Checked: " + exploredNodes);
 			Debug.Log(path.pathName + " Total Score: " + (score + exploredNodes));
 
-        isPathfindingComplete = true;
-        yield return null;
-    }
-
-
-
+	        isPathfindingComplete = true;
+	        yield return null;
+	    }
+		
 		//Add new nodes to the frontier to be checked
 		void AddNodesToFrontier(int x, int y){
 			//if the node position is valid

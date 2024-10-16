@@ -18,6 +18,8 @@ public class FollowAStarScript : MonoBehaviour {
 	protected float startTime;
 	protected float travelStartTime;
 
+	private bool isInitialized = false;
+
 	// Use this for initialization
 	protected virtual void Start () {
 
@@ -25,10 +27,9 @@ public class FollowAStarScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	protected virtual void Update () {
-		if (astar.isPathfindingComplete && !move) {
+		if (astar.isPathfindingComplete && !move && !isInitialized) {
             InitializePathFollowing();
         }
-
 
 		if(move){
 			lerpPer += Time.deltaTime/destPos.moveCost;
@@ -72,6 +73,8 @@ public class FollowAStarScript : MonoBehaviour {
         Invoke("StartMove", path.nodeInspected/100f);
 
         startTime = Time.realtimeSinceStartup;
-    }
+
+        isInitialized = true;
+	  }
 }
 
