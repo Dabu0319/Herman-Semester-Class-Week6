@@ -20,7 +20,8 @@ public class GridScript : MonoBehaviour {
 
     protected virtual void Start()
     {
-        // 我改成游戏开始时就生成网格 这样可以编辑
+        // I changed it to generate the grid when the game starts
+        // so that it can be edited
         GetGrid();
     }
 
@@ -50,23 +51,23 @@ public class GridScript : MonoBehaviour {
 
 					gridArray[x, y] = quad;
 
-					// 设置每个 tile 的材质
+					// Set the material for each tile
 					quad.GetComponent<MeshRenderer>().sharedMaterial = GetMaterial(x, y);
 
-					// 为每个 tile 添加 TileComponent
+					// Add a TileComponent to each tile
 					TileComponent tileComponent = quad.AddComponent<TileComponent>();
 					tileComponent.Initialize(this, x, y, quad.GetComponent<MeshRenderer>().sharedMaterial, GetMovementCost(quad));
 
-					// 处理起始点和目标点
+					// Start and destination points
 					if (Mathf.Approximately(goal.x, x) && Mathf.Approximately(goal.y, y))
 					{
 						goalSprite.transform.position = quad.transform.position;
-						goalSprite.AddComponent<Draggable>(); // 添加可拖拽component
+						goalSprite.AddComponent<Draggable>(); // Add the "draggable" component
 					}
 					if (Mathf.Approximately(start.x, x) && Mathf.Approximately(start.y, y))
 					{
 						startSprite.transform.position = quad.transform.position;
-						startSprite.AddComponent<Draggable>(); // 添加可拖拽component
+						startSprite.AddComponent<Draggable>(); // Add the "draggable" component
 					}
 				}
 			}
@@ -75,7 +76,7 @@ public class GridScript : MonoBehaviour {
 		return gridArray;
 	}
 
-	// 根据玩家选择更新 tile 的材质和移动成本
+	// Updates the tile's texture and movement cost based on the player's choice
     public void UpdateTile(int gridX, int gridY, Material newMaterial, float newCost)
     {
         GameObject tile = gridArray[gridX, gridY];
@@ -101,7 +102,7 @@ public class GridScript : MonoBehaviour {
     }
     protected virtual Material GetMaterial(int x, int y)
     {
-        return mats[0]; // return mats0 就是默认的草坪材质
+        return mats[0]; // return mats0 is the default grass material
     }
 
 	void OnDrawGizmos() // 就看了一下mat这个Grid是怎么搞的 原来对齐的是grid的交叉点

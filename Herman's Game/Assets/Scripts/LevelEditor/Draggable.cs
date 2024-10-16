@@ -100,7 +100,7 @@ public class Draggable : MonoBehaviour
     }
 
 
-    //和grid对齐
+    // Align and snap with grid
     private Vector3 SnapToGrid(Vector3 position)
     {
         float offsetX = (gridScript.gridWidth * -gridScript.spacing) / 2f;

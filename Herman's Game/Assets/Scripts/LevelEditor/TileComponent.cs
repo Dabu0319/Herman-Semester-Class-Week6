@@ -19,7 +19,7 @@ public class TileComponent : MonoBehaviour
         currentMaterial = material;
         currentCost = cost;
 
-        // 初始化材质
+        // Initialize material
         GetComponent<Renderer>().material = currentMaterial;
     }
 
