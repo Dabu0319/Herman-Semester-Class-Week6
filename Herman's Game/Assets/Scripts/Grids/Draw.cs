@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 
 public class Draw : MonoBehaviour
 {
-    // Update is called once per frame
+    public bool canDraw = true;
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && canDraw)
         {
             // Raycast from the mouse position to detect GameObjects
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -25,5 +25,8 @@ public class Draw : MonoBehaviour
                 }
             }
         }
+        
+        
+       
     }
 }

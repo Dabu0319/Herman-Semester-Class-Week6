@@ -18,4 +18,6 @@ public class UpdatedAStarScript : AStarScript
     {
         SceneManager.LoadScene("Scenes/LevelEditor");
     }
+    
+    
 }

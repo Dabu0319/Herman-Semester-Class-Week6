@@ -11,6 +11,8 @@ public class Draggable : MonoBehaviour
     private TileSelector tileSelector;  
     private float offsetX;
     private float offsetY;
+    
+    
 
     void Start()
     {
@@ -23,6 +25,7 @@ public class Draggable : MonoBehaviour
 
     void Update()
     {
+        
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -42,6 +45,10 @@ public class Draggable : MonoBehaviour
             //snap the sprite object to mouse position
             Vector3 newMousePos = GetMouseWorldPosition() - offset;
             transform.position = newMousePos;
+            
+            tileSelector.UnselectTile();
+            
+            
         }
 
         if (Input.GetMouseButtonUp(0) && isDragging)
@@ -57,7 +64,7 @@ public class Draggable : MonoBehaviour
         }
 
         // Detect if the grid tile is clicked
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) )
         {
             Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
