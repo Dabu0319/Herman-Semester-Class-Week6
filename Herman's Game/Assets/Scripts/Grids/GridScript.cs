@@ -133,5 +133,7 @@ public class GridScript : MonoBehaviour {
             Gizmos.DrawLine(start, end);
         }
     }
+    
+    
 
 }

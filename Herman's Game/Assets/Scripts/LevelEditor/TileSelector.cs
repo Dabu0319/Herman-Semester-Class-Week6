@@ -5,8 +5,12 @@ using UnityEngine;
 public class TileSelector : MonoBehaviour
 {
     public Material selectedMaterial;  
-    public float selectedCost;         
+    public float selectedCost;
+    //private GridScript _gridScript;
+    //public bool randomSelected = false;
 
+    public TileType tileType = TileType.Basic;
+    
     public void SelectTile(Material newMaterial, float newCost)
     {
         selectedMaterial = newMaterial;

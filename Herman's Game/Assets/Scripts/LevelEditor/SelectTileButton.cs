@@ -2,11 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TileType
+{
+    Random,
+    Eraser,
+    Basic,
+
+}
+
+
 public class SelectTileButton : MonoBehaviour
 {
     public Material materialToSelect;
     public float costToSelect;
     private TileSelector tileSelector;
+    
+    public TileType tileType = TileType.Basic;
+   //public bool randomTile = false;
 
     void Start()
     {
@@ -17,7 +29,26 @@ public class SelectTileButton : MonoBehaviour
     {
         // When the player clicks the button,
         // set the selected material and cost
-        tileSelector.SelectTile(materialToSelect, costToSelect);
-        Debug.Log("Selected: " + materialToSelect.name + "Cost: " + costToSelect);
+
+        switch (tileType)
+        {
+            case TileType.Random:
+                tileSelector.tileType = TileType.Random;
+                break;
+            case TileType.Eraser:
+                //tileSelector.SelectEraser();
+                tileSelector.tileType = TileType.Eraser;
+                break;
+            case TileType.Basic:
+                tileSelector.SelectTile(materialToSelect, costToSelect);
+                Debug.Log("Selected: " + materialToSelect.name + "Cost: " + costToSelect);
+                //tileSelector.randomSelected = false;
+                tileSelector.tileType = TileType.Basic;
+                break;
+        }
+
+        
+        
+        
     }
 }

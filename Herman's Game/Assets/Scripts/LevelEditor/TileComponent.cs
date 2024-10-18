@@ -13,6 +13,7 @@ public class TileComponent : MonoBehaviour
     private float currentCost;
     private TileSelector tileSelector;
     private bool isHolding = false;
+    private bool isRandomized = false; 
     
     public void Initialize(GridScript grid, int x, int y, Material material, float cost)
     {
@@ -33,18 +34,46 @@ public class TileComponent : MonoBehaviour
 
     public void OnMouseDown()
     {
-        // Check if there is a selected material and cost,
-        // if not, do not perform the replacement operation
-        if (tileSelector != null && tileSelector.selectedMaterial != null && tileSelector.selectedCost > 0)
+        switch (tileSelector.tileType)
         {
-            // Update the tile's material and cost
-            gridScript.UpdateTile(gridX, gridY, tileSelector.selectedMaterial, tileSelector.selectedCost);
+            case TileType.Random:
+                if (!isRandomized)
+                {
+                    int randomIndex = UnityEngine.Random.Range(0, gridScript.mats.Length);
+                    Material randomMaterial = gridScript.mats[randomIndex];
+                    float randomCost = gridScript.costs[randomIndex];
+                    // Update the tile's material and cost
+                    
+                    UpdateTile(randomMaterial, randomCost);
+                    isRandomized = true;
+                }
+                break;
+            case TileType.Eraser:
+                tileSelector.selectedMaterial = gridScript.mats[0];
+                tileSelector.selectedCost = gridScript.costs[0];
+                UpdateTile( tileSelector.selectedMaterial, tileSelector.selectedCost);
+                
+                break;
+            case TileType.Basic:
+                if (tileSelector != null && tileSelector.selectedMaterial != null && tileSelector.selectedCost > 0)
+                {
+                    // Update the tile's material and cost
+                    UpdateTile(tileSelector.selectedMaterial, tileSelector.selectedCost);
 
-            GetComponent<Renderer>().material = tileSelector.selectedMaterial;
-            currentCost = tileSelector.selectedCost;
-
-            Debug.Log($"Tile at ({gridX}, {gridY}) updated with material: {tileSelector.selectedMaterial.name}, cost: {tileSelector.selectedCost}");
+                    Debug.Log($"Tile at ({gridX}, {gridY}) updated with material: {tileSelector.selectedMaterial.name}, cost: {tileSelector.selectedCost}");
+                }
+                break;
         }
+
+
+    }
+    
+    public void UpdateTile(Material newMaterial, float newCost)
+    {
+        // Update the tile's material and cost
+        gridScript.UpdateTile(gridX, gridY, newMaterial, newCost);
+        GetComponent<Renderer>().material = newMaterial;
+        currentCost = newCost;
     }
     
 }
