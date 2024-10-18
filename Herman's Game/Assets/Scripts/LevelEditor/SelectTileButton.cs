@@ -30,10 +30,12 @@ public class SelectTileButton : MonoBehaviour
         // When the player clicks the button,
         // set the selected material and cost
 
+        tileSelector.StartTilePreview(gameObject.name);
         switch (tileType)
         {
             case TileType.Random:
                 tileSelector.tileType = TileType.Random;
+                
                 break;
             case TileType.Eraser:
                 //tileSelector.SelectEraser();

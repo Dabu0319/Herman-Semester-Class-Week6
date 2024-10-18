@@ -14,6 +14,7 @@ public class TileComponent : MonoBehaviour
     private TileSelector tileSelector;
     private bool isHolding = false;
     private bool isRandomized = false; 
+
     
     public void Initialize(GridScript grid, int x, int y, Material material, float cost)
     {
@@ -31,6 +32,12 @@ public class TileComponent : MonoBehaviour
     {
         tileSelector = FindObjectOfType<TileSelector>();  // Get TileSelector for material and cost
     }
+
+    private void Update()
+    {
+
+        }
+    
 
     public void OnMouseDown()
     {
@@ -67,7 +74,13 @@ public class TileComponent : MonoBehaviour
 
 
     }
-    
+
+    private void OnMouseUp()
+    {
+        isHolding = false;
+        isRandomized = false;
+    }
+
     public void UpdateTile(Material newMaterial, float newCost)
     {
         // Update the tile's material and cost
@@ -75,6 +88,8 @@ public class TileComponent : MonoBehaviour
         GetComponent<Renderer>().material = newMaterial;
         currentCost = newCost;
     }
+    
+
     
 }
 
